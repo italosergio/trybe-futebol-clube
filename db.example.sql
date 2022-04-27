@@ -84,3 +84,15 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES 
   (1,'Admin','admin','admin@admin.com','$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'),
   (2,'User','user','user@user.com','$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO');
+
+USE TRYBE_FUTEBOL_CLUBE;
+
+SHOW TABLES;
+
+
+LOCK TABLES matches READ;
+SELECT * FROM matches;
+LOCK TABLES teams READ;
+SELECT * FROM teams;
+LOCK TABLES users READ;
+SELECT * FROM users;
