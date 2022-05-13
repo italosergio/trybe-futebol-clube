@@ -15,6 +15,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 # Sumário
 
 - [Boas vindas ao repositório do TFC - Trybe Futebol Clube! ⚽️](#boas-vindas-ao-repositório-do-tfc---trybe-futebol-clube-️)
+- [Sumário](#sumário)
 - [Habilidades](#habilidades)
 - [Entregáveis](#entregáveis)
   - [O que deverá ser desenvolvido](#o-que-deverá-ser-desenvolvido)
@@ -29,7 +30,9 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
   - [Antes de começar:](#antes-de-começar)
     - [⚠️ Leia-os atentamente e siga à risca o que for pedido. ⚠️](#️-leia-os-atentamente-e-siga-à-risca-o-que-for-pedido-️)
     - [👀 Observações importantes:](#-observações-importantes)
+      - [⚠️ **Utilize o `node` na versão 16** ⚠️](#️-utilize-o-node-na-versão-16-️)
       - [⚠️ **Inicie seu `docker-compose` antes de testar localmente!** ⚠️](#️-inicie-seu-docker-compose-antes-de-testar-localmente-️)
+      - [⚠️ Variáveis](#️-variáveis)
       - [Variáveis de ambiente](#variáveis-de-ambiente)
       - [Variáveis:](#variáveis)
       - [Chave JWT e criptografia de senhas:](#chave-jwt-e-criptografia-de-senhas)
@@ -884,6 +887,12 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
 
   - Será validado que ao finalizar uma partida é alterado no banco de dados e na página
 
+  - Deve-se retornar, com um status `200`, a seguinte mensagem:
+
+  ```json
+  { "message": "Finished" }
+  ```
+
 
 #### 25 - Desenvolva o endpoint `/matches` de forma que não seja possível inserir uma partida com times iguais
 
@@ -1065,9 +1074,9 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
 
   - Esse endpoint irá alimentar no front-end uma tabela idêntica ao exemplo abaixo:
 
-    | Classificação |   Time    | P  | J  | V  | E | D | GP | GC | SG | %    |
-    |---------------|-----------|----|----|----|---|---|----|----|----|------|
-    |      1        |Corinthians| 38 | 15 | 12 | 2 | 1 | 44 | 13 | 31 | 84.4 |
+    | Classificação | Time        | P   | J   | V   | E   | D   | GP  | GC  | SG  | %    |
+    | ------------- | ----------- | --- | --- | --- | --- | --- | --- | --- | --- | ---- |
+    | 1             | Corinthians | 38  | 15  | 12  | 2   | 1   | 44  | 13  | 31  | 84.4 |
 
 
 #### 33 - Desenvolva o endpoint `/leaderboard` de forma que seja possível filtrar a classificação geral dos times na tela de classificação do front-end com os dados iniciais do banco de dados
