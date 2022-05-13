@@ -82,7 +82,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
       - [28 - Desenvolva o endpoint `/matches/:id` de forma que seja possível finalizar partidas em andamento](#28---desenvolva-o-endpoint-matchesid-de-forma-que-seja-possível-finalizar-partidas-em-andamento)
   - [Leaderboards](#leaderboards)
     - [Leaderboard Home](#leaderboard-home)
-      - [29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do frontend com os dados iniciais do banco de dados](#29---desenvolva-o-endpoint-leaderboardhome-de-forma-que-seja-possível-filtrar-a-classificações-dos-times-quando-mandantes-na-tela-de-classificação-do-frontend-com-os-dados-iniciais-do-banco-de-dados)
+      - [29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times, quando mandantes, na tela de classificação do frontend com os dados iniciais do banco de dados](#29---desenvolva-o-endpoint-leaderboardhome-de-forma-que-seja-possível-filtrar-a-classificações-dos-times-quando-mandantes-na-tela-de-classificação-do-frontend-com-os-dados-iniciais-do-banco-de-dados)
       - [30 - Desenvolva o endpoint `/leaderboard/home`, de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do front-end e ao inserir a partida Corinthians 2 X 1 Internacional a tabela será atualizada](#30---desenvolva-o-endpoint-leaderboardhome-de-forma-que-seja-possível-filtrar-a-classificações-dos-times-quando-mandantes-na-tela-de-classificação-do-front-end-e-ao-inserir-a-partida-corinthians-2-x-1-internacional-a-tabela-será-atualizada)
     - [Leaderboard away](#leaderboard-away)
       - [31 - Desenvolva o endpoint `/leaderboard/away`, de forma que seja possível filtrar as classificações dos times  na tela de classificação do front-end, com os dados iniciais do banco de dados](#31---desenvolva-o-endpoint-leaderboardaway-de-forma-que-seja-possível-filtrar-as-classificações-dos-times--na-tela-de-classificação-do-front-end-com-os-dados-iniciais-do-banco-de-dados)
@@ -954,7 +954,7 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
     - `E`: Total de Empates;
     - `D`: Total de Derrotas;
     - `GP`: Gols marcados a favor;
-    - `GC`: Gols marcados contra;
+    - `GC`: Gols sofridos;
     - `SG`: Saldo total de gols;
     - `%`: Aproveitamento do time.
 
@@ -982,7 +982,7 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
   1º Total de Vitórias;
   2º Saldo de gols;
   3º Gols a favor;
-  4º Gols contra.
+  4º Gols sofridos.
 
 
   ⚠️ **Atenção:** ⚠️
@@ -1045,11 +1045,13 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
 
 ### Leaderboard Home
 
-#### 29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do frontend com os dados iniciais do banco de dados
+#### 29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times, quando mandantes, na tela de classificação do frontend com os dados iniciais do banco de dados
 
   - O endpoint deverá ser do tipo `GET` e ter o retorno como descrito no exemplo do [leaderboard](#leaderboards)
 
   - Será avaliado que ao fazer a requisição ao endpoint `/leaderboard/home` serão retornados os campos e valores corretos considerando os dados iniciais do banco de dados
+
+  - OBS: Um time `mandante` é quando o mesmo é o time da casa.
 
 #### 30 - Desenvolva o endpoint `/leaderboard/home`, de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do front-end e ao inserir a partida Corinthians 2 X 1 Internacional a tabela será atualizada
 
