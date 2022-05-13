@@ -376,6 +376,8 @@ Alguns exemplos:
 
   - Um acesso ao criar um recurso, no nosso caso usuário ou partida, deve retornar um código de `status 201`.
 
+  - Quando solicitado algo que não existe no banco, deve retornar um código de `status 404`.
+
 ---
 
 ## Configuração Docker:
