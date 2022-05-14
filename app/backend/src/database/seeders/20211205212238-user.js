@@ -10,13 +10,13 @@ module.exports = {
         username: 'Admin',
         role: 'admin',
         email: 'admin@admin.com',
-        password: 'secret_admin', // secret_admin
+        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW', // secret_admin
       },
       {
         username: 'User',
         role: 'user',
         email: 'user@user.com',
-        password: 'secret_user', // secret_user
+        password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO', // secret_user
       },
     ], {});
   },
