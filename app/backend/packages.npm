@@ -2,3 +2,4 @@ bcryptjs
 @types/bcryptjs
 cors
 @types/cors
+express-async-errors
