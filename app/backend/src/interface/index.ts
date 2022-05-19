@@ -1,3 +1,3 @@
-import User from './IUser';
+import IUser from './IUser';
 
-export { User };
+export default IUser;
