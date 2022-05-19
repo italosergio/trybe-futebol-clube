@@ -1,3 +1,4 @@
 import User from './User';
+import Teams from './Teams';
 
-export default User;
+export { User, Teams };
