@@ -20,7 +20,9 @@ export default class Token {
 
   static async decode(userToken: string) {
     this.secret = await fs.readFile('jwt.evaluation.key', 'utf-8');
-    this.decoded = jwt.verify(userToken, this.secret);
+    const { user } = await jwt
+      .verify(userToken, this.secret) as { user: IUser, iat: number, exp: number };
+    this.decoded = user;
     return this.decoded;
   }
 }
