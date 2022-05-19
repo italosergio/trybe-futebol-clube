@@ -31,6 +31,7 @@ class App {
     app.use(accessControl);
     app.use('/', HttpError.throw);
     app.post('/login', Validate.email, Validate.password, Login.sucess);
+    app.get('/login/validate', Login.validate);
     // ...
   }
 

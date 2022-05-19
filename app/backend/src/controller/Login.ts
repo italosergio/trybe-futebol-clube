@@ -20,4 +20,12 @@ export default class Login {
 
     return res.status(200).json({ user, token });
   }
+
+  static async validate(req: Request, res: Response, _next: NextFunction): Promise<Response> {
+    const token = req.headers.authorization;
+    if (!token) throw new Error('Login again');
+    const { role } = await Token.decode(token);
+
+    return res.status(200).send(role);
+  }
 }
