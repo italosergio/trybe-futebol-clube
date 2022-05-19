@@ -1,6 +1,6 @@
 import * as express from 'express';
 import Login from './controller/Login';
-import HttpError from './middleware/index';
+import { HttpError, Validate } from './middleware/index';
 
 import 'express-async-errors';
 
@@ -30,7 +30,7 @@ class App {
 
     app.use(accessControl);
     app.use('/', HttpError.throw);
-    app.post('/login', Login.sucess);
+    app.post('/login', Validate.email, Login.sucess);
     // ...
   }
 

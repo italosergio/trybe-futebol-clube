@@ -1,3 +1,4 @@
-import HttpError from './error';
+import HttpError from './Error';
+import Validate from './Validate';
 
-export default HttpError;
+export { HttpError, Validate };
