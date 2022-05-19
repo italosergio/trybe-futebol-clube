@@ -1,21 +1,20 @@
 import IUser from '../interface/IUser';
-import Users from '../database/models/Users';
+import User from '../model';
 
 export default class Find {
   static _user: IUser;
 
   static async User(email: string) {
-    const User = await Users.findOne(
-      { where: { email } },
-    );
+    const user = await User.find(email);
 
     this._user = {
-      id: User?.getDataValue('id'),
-      username: User?.getDataValue('username'),
-      role: User?.getDataValue('role'),
-      email: User?.getDataValue('email'),
-      password: User?.getDataValue('password'),
+      id: user?.getDataValue('id'),
+      username: user?.getDataValue('username'),
+      role: user?.getDataValue('role'),
+      email: user?.getDataValue('email'),
+      password: user?.getDataValue('password'),
     };
+
     return this._user;
   }
 }
