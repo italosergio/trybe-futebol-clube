@@ -14,6 +14,8 @@
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
     "paths": {
       "*": ["node_modules/*"]
     }
