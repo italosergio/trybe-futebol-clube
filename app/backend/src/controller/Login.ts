@@ -8,10 +8,7 @@ export default class Login {
 
   static async sucess(req: Request, res: Response, _next: NextFunction): Promise<Response> {
     const { email, password } = req.body;
-    const isCorrectUser = await Helper.bcrypt(email, password);
-    // console.log(isCorrectUser);
-
-    if (isCorrectUser) this._user = isCorrectUser;
+    this._user = await Helper.bcrypt(email, password) as IUser;
     const token = await Token.generator(this._user);
 
     const user = {
