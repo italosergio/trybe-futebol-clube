@@ -1,4 +1,4 @@
-import Find from './FindUser';
+import Find from './Find';
 import Token from './Jwt';
 import Helper from './Helper';
 

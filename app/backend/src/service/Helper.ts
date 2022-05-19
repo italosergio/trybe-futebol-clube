@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import IUser from '../interface/IUser';
-import Find from './FindUser';
+import Find from './Find';
 
 export default class Helper {
   private static _user: IUser;
