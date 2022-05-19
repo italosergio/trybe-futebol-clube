@@ -164,3 +164,38 @@ describe('2 - POST /login - Incorrect email and password', () => {
     expect(chaiHttpResponse.body.message).to.be.equal('All fields must be filled');
   });
 });
+
+describe('3 - GET /login/validate - Token validate', () => {
+  before(async () => {
+    sinon
+      .stub(Users, "findOne")
+      .resolves({...UserMock} as unknown as Users);
+    
+    const { body: { token } } = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: 'batman@justiceleague.org',
+        password: 'secret_admin'
+      });
+
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/login/validate')
+      .set({"authorization": token})
+  });
+
+  after(async ()=>{
+    (Users.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Return status 200', async () => {
+    expect(chaiHttpResponse.status).exist;
+    expect(chaiHttpResponse.status).to.be.equal(200);
+  });
+
+  it('Return \'admin\' role text', async () => {
+    expect(chaiHttpResponse.text).exist;
+    expect(chaiHttpResponse.text).to.be.equal("admin");
+  });
+});
