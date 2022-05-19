@@ -74,3 +74,93 @@ describe('1 - POST /login - Correct email and password', () => {
     expect(chaiHttpResponse.body.user.email).to.be.equal('batman@justiceleague.org');
   });
 });
+
+describe('2 - POST /login - Incorrect email and password', () => {
+  before(async () => {
+    sinon
+      .stub(Users, "findOne")
+      .resolves({...UserMock} as unknown as Users);
+  });
+
+  after(async ()=>{
+    (Users.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Return status 401 when email is incorrect', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: 'incorrect_email',
+        password: 'secret_admin'
+      });
+
+    expect(chaiHttpResponse.status).exist;
+    expect(chaiHttpResponse.status).to.be.equal(401);
+  });
+
+  it('Return status 401 when password is incorrect', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: 'batman@justiceleague.org',
+        password: 'incorrect_pass'
+      });
+      
+    expect(chaiHttpResponse.status).exist;
+    expect(chaiHttpResponse.status).to.be.equal(401);
+  });
+
+  it('Check message when email is incorrect', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: 'incorrect_email',
+        password: 'secret_admin'
+      });
+
+    expect(chaiHttpResponse.body.message).exist;
+    expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+  });
+
+  it('Check message when password is incorrect', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: 'batman@justiceleague.org',
+        password: 'incorrect_pass'
+      });
+
+    expect(chaiHttpResponse.body.message).exist;
+    expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+  });
+
+  it('Check message when email does not filled', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: '',
+        password: 'secret_admin'
+      });
+
+    expect(chaiHttpResponse.body.message).exist;
+    expect(chaiHttpResponse.body.message).to.be.equal('All fields must be filled');
+  });
+
+  it('Check message when password does not filled', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: 'batman@justiceleague.org',
+        password: ''
+      });
+
+    expect(chaiHttpResponse.body.message).exist;
+    expect(chaiHttpResponse.body.message).to.be.equal('All fields must be filled');
+  });
+});
