@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
 import { ITeams } from '../interface';
-import Find from '../service/Find';
+import { Find } from '../service';
 
 export default class Teams {
   private static _teams: ITeams[];
