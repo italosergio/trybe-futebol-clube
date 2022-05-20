@@ -1,4 +1,5 @@
 import User from './User';
 import Teams from './Teams';
+import Team from './Team';
 
-export { User, Teams };
+export { User, Team, Teams };
