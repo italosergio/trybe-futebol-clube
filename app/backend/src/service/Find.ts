@@ -10,6 +10,8 @@ export default class Find {
 
   static _matches: IMatch[];
 
+  static _match: IMatch;
+
   static async User(email: string) {
     const user = await User.find(email);
 
@@ -34,8 +36,13 @@ export default class Find {
     return this._team;
   }
 
-  static async Maches() {
+  static async Matches() {
     this._matches = await Matches.getAll();
     return this._matches;
+  }
+
+  static async Match(match: IMatch) {
+    this._match = await Matches.getOne(match);
+    return this._match;
   }
 }
