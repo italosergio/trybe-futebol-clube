@@ -33,6 +33,7 @@ class App {
     app.post('/login', Validate.email, Validate.password, Login.sucess);
     app.get('/login/validate', Login.validate);
     app.get('/teams', Teams.all);
+    app.get('/teams/:id', Teams.byId);
     // ...
   }
 
