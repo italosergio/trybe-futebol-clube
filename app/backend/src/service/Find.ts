@@ -1,5 +1,5 @@
-import { IUser, ITeams, ITeam } from '../interface';
-import { User, Team, Teams } from '../model';
+import { IUser, ITeams, ITeam, IMatch } from '../interface';
+import { User, Team, Teams, Matches } from '../model';
 
 export default class Find {
   static _user: IUser;
@@ -7,6 +7,8 @@ export default class Find {
   static _teams: ITeams[];
 
   static _team: ITeam;
+
+  static _matches: IMatch[];
 
   static async User(email: string) {
     const user = await User.find(email);
@@ -27,8 +29,13 @@ export default class Find {
     return this._teams;
   }
 
-  static async Team(id) {
+  static async Team(id: string) {
     this._team = await Team.find(id);
     return this._team;
+  }
+
+  static async Maches() {
+    this._matches = await Matches.getAll();
+    return this._matches;
   }
 }
