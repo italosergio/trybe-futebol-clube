@@ -1,6 +1,6 @@
 import * as express from 'express';
-import { Login, Teams } from './controller';
-import { HttpError, Validate } from './middleware/index';
+import { Login, Teams, Matches } from './controller';
+import { HttpError, Validate } from './middleware';
 
 import 'express-async-errors';
 
@@ -34,6 +34,7 @@ class App {
     app.get('/login/validate', Login.validate);
     app.get('/teams', Teams.all);
     app.get('/teams/:id', Teams.byId);
+    app.get('/matches', Matches.all);
     // ...
   }
 
