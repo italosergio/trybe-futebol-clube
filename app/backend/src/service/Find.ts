@@ -1,5 +1,5 @@
 import { IUser, ITeams, ITeam, IMatch } from '../interface';
-import { User, Team, Teams, Matches } from '../model';
+import { User, Team, Teams, Match, Matches } from '../model';
 
 export default class Find {
   static _user: IUser;
@@ -32,17 +32,17 @@ export default class Find {
   }
 
   static async Team(id: string) {
-    this._team = await Team.find(id);
+    this._team = await Team.get(id);
     return this._team;
   }
 
   static async Matches() {
-    this._matches = await Matches.getAll();
+    this._matches = await Matches.get();
     return this._matches;
   }
 
   static async Match(match: IMatch) {
-    this._match = await Matches.getOne(match);
+    this._match = await Match.get(match);
     return this._match;
   }
 }

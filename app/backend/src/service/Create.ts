@@ -1,7 +1,7 @@
-import { Matches } from '../model';
+import { Match } from '../model';
 
 export default class Create {
   static async match(values) {
-    return Matches.insert(values);
+    return Match.insert(values);
   }
 }
