@@ -35,6 +35,7 @@ class App {
     app.get('/teams', Teams.all);
     app.get('/teams/:id', Teams.byId);
     app.get('/matches', Matches.all);
+    app.post('/matches', Matches.create);
     // ...
   }
 
