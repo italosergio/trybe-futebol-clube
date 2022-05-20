@@ -5,7 +5,7 @@ import { IMatch } from '../interface';
 export default class Matches {
   static _matches: IMatch[];
 
-  static async all(req: Request, res: Response, _next: NextFunction): Promise<Response> {
+  static async getAll(req: Request, res: Response, _next: NextFunction): Promise<Response> {
     const inProgress = req.query.inProgress as string;
 
     this._matches = await Find.Matches();

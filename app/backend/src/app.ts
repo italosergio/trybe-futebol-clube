@@ -34,7 +34,7 @@ class App {
     app.get('/login/validate', Login.validate);
     app.get('/teams', Teams.all);
     app.get('/teams/:id', Teams.byId);
-    app.get('/matches', Matches.all);
+    app.get('/matches', Matches.getAll);
     app.post('/matches', Matches.create);
     // ...
   }
