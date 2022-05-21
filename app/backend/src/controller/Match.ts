@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
-import { Create, Find } from '../service';
+import { Create, Find, Update } from '../service';
 import { IMatch } from '../interface';
 
 export default class Match {
@@ -25,5 +25,11 @@ export default class Match {
     const createdMatch = await Find.Match(match);
 
     return res.status(201).json(createdMatch);
+  }
+
+  static async finish(req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const { id } = req.params;
+    await Update.matchFinish(id)
+    return res.status(204).end()
   }
 }
