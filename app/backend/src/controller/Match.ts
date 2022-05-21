@@ -20,6 +20,8 @@ export default class Match {
       inProgress,
     };
 
+    if (homeTeam === awayTeam) return res.status(400).json({ message: 'times iguais' });
+
     await Create.match(match);
 
     const createdMatch = await Find.Match(match);
@@ -27,9 +29,9 @@ export default class Match {
     return res.status(201).json(createdMatch);
   }
 
-  static async finish(req: Request, res: Response, _next: NextFunction): Promise<void> {
+  static async finish(req: Request, res: Response, _next: NextFunction): Promise<Response> {
     const { id } = req.params;
-    await Update.matchFinish(id)
-    return res.status(204).end()
+    await Update.matchFinish(id);
+    return res.status(200).json({ message: 'Finished' });
   }
 }
