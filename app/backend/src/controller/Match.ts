@@ -12,9 +12,16 @@ export default class Match {
     const match: IMatch = { ...req.body };
 
     if (homeTeam === awayTeam) {
-      res
-        .status(401)
+      return res.status(401)
         .json({ message: 'It is not possible to create a match with two equal teams' });
+    }
+
+    const homeTeamExist = await Find.Team(homeTeam);
+    const awayTeamExist = await Find.Team(awayTeam);
+
+    if (!homeTeamExist || !awayTeamExist) {
+      return res.status(404)
+        .json({ message: 'There is no team with such id!' });
     }
 
     await Create.match(match);
