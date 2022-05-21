@@ -29,7 +29,6 @@ class App {
     const { app } = this;
 
     app.use(accessControl);
-    app.use('/', HttpError.throw);
     app.post('/login', Validate.email, Validate.password, Login.sucess);
     app.get('/login/validate', Login.validate);
     app.get('/teams', Teams.get);
@@ -38,6 +37,8 @@ class App {
     app.post('/matches', Match.create);
     app.patch('/matches/:id', Match.score);
     app.patch('/matches/:id/finish', Match.finish);
+    app.use('/', HttpError.throw);
+
     // ...
   }
 
