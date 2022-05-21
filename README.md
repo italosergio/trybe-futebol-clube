@@ -15,6 +15,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
 # Sumário
 
 - [Boas vindas ao repositório do TFC - Trybe Futebol Clube! ⚽️](#boas-vindas-ao-repositório-do-tfc---trybe-futebol-clube-️)
+- [Sumário](#sumário)
 - [Habilidades](#habilidades)
 - [Entregáveis](#entregáveis)
   - [O que deverá ser desenvolvido](#o-que-deverá-ser-desenvolvido)
@@ -29,7 +30,9 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
   - [Antes de começar:](#antes-de-começar)
     - [⚠️ Leia-os atentamente e siga à risca o que for pedido. ⚠️](#️-leia-os-atentamente-e-siga-à-risca-o-que-for-pedido-️)
     - [👀 Observações importantes:](#-observações-importantes)
+      - [⚠️ **Utilize o `node` na versão 16** ⚠️](#️-utilize-o-node-na-versão-16-️)
       - [⚠️ **Inicie seu `docker-compose` antes de testar localmente!** ⚠️](#️-inicie-seu-docker-compose-antes-de-testar-localmente-️)
+      - [⚠️ Variáveis](#️-variáveis)
       - [Variáveis de ambiente](#variáveis-de-ambiente)
       - [Variáveis:](#variáveis)
       - [Chave JWT e criptografia de senhas:](#chave-jwt-e-criptografia-de-senhas)
@@ -79,7 +82,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
       - [28 - Desenvolva o endpoint `/matches/:id` de forma que seja possível finalizar partidas em andamento](#28---desenvolva-o-endpoint-matchesid-de-forma-que-seja-possível-finalizar-partidas-em-andamento)
   - [Leaderboards](#leaderboards)
     - [Leaderboard Home](#leaderboard-home)
-      - [29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do frontend com os dados iniciais do banco de dados](#29---desenvolva-o-endpoint-leaderboardhome-de-forma-que-seja-possível-filtrar-a-classificações-dos-times-quando-mandantes-na-tela-de-classificação-do-frontend-com-os-dados-iniciais-do-banco-de-dados)
+      - [29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times, quando mandantes, na tela de classificação do frontend com os dados iniciais do banco de dados](#29---desenvolva-o-endpoint-leaderboardhome-de-forma-que-seja-possível-filtrar-a-classificações-dos-times-quando-mandantes-na-tela-de-classificação-do-frontend-com-os-dados-iniciais-do-banco-de-dados)
       - [30 - Desenvolva o endpoint `/leaderboard/home`, de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do front-end e ao inserir a partida Corinthians 2 X 1 Internacional a tabela será atualizada](#30---desenvolva-o-endpoint-leaderboardhome-de-forma-que-seja-possível-filtrar-a-classificações-dos-times-quando-mandantes-na-tela-de-classificação-do-front-end-e-ao-inserir-a-partida-corinthians-2-x-1-internacional-a-tabela-será-atualizada)
     - [Leaderboard away](#leaderboard-away)
       - [31 - Desenvolva o endpoint `/leaderboard/away`, de forma que seja possível filtrar as classificações dos times  na tela de classificação do front-end, com os dados iniciais do banco de dados](#31---desenvolva-o-endpoint-leaderboardaway-de-forma-que-seja-possível-filtrar-as-classificações-dos-times--na-tela-de-classificação-do-front-end-com-os-dados-iniciais-do-banco-de-dados)
@@ -372,6 +375,8 @@ Alguns exemplos:
   - Um problema inesperado no servidor deve retornar um código de `status 500`;
 
   - Um acesso ao criar um recurso, no nosso caso usuário ou partida, deve retornar um código de `status 201`.
+
+  - Quando solicitado algo que não existe no banco, deve retornar um código de `status 404`.
 
 ---
 
@@ -884,6 +889,12 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
 
   - Será validado que ao finalizar uma partida é alterado no banco de dados e na página
 
+  - Deve-se retornar, com um status `200`, a seguinte mensagem:
+
+  ```json
+  { "message": "Finished" }
+  ```
+
 
 #### 25 - Desenvolva o endpoint `/matches` de forma que não seja possível inserir uma partida com times iguais
 
@@ -943,7 +954,7 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
     - `E`: Total de Empates;
     - `D`: Total de Derrotas;
     - `GP`: Gols marcados a favor;
-    - `GC`: Gols marcados contra;
+    - `GC`: Gols sofridos;
     - `SG`: Saldo total de gols;
     - `%`: Aproveitamento do time.
 
@@ -971,7 +982,7 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
   1º Total de Vitórias;
   2º Saldo de gols;
   3º Gols a favor;
-  4º Gols contra.
+  4º Gols sofridos.
 
 
   ⚠️ **Atenção:** ⚠️
@@ -1034,11 +1045,13 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
 
 ### Leaderboard Home
 
-#### 29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do frontend com os dados iniciais do banco de dados
+#### 29 - Desenvolva o endpoint `/leaderboard/home` de forma que seja possível filtrar a classificações dos times, quando mandantes, na tela de classificação do frontend com os dados iniciais do banco de dados
 
   - O endpoint deverá ser do tipo `GET` e ter o retorno como descrito no exemplo do [leaderboard](#leaderboards)
 
   - Será avaliado que ao fazer a requisição ao endpoint `/leaderboard/home` serão retornados os campos e valores corretos considerando os dados iniciais do banco de dados
+
+  - OBS: Um time `mandante` é quando o mesmo é o time da casa.
 
 #### 30 - Desenvolva o endpoint `/leaderboard/home`, de forma que seja possível filtrar a classificações dos times quando mandantes na tela de classificação do front-end e ao inserir a partida Corinthians 2 X 1 Internacional a tabela será atualizada
 
@@ -1065,9 +1078,9 @@ Para o desenvolvimento, o time de produto disponibilizou um *Diagrama de Entidad
 
   - Esse endpoint irá alimentar no front-end uma tabela idêntica ao exemplo abaixo:
 
-    | Classificação |   Time    | P  | J  | V  | E | D | GP | GC | SG | %    |
-    |---------------|-----------|----|----|----|---|---|----|----|----|------|
-    |      1        |Corinthians| 38 | 15 | 12 | 2 | 1 | 44 | 13 | 31 | 84.4 |
+    | Classificação | Time        | P   | J   | V   | E   | D   | GP  | GC  | SG  | %    |
+    | ------------- | ----------- | --- | --- | --- | --- | --- | --- | --- | --- | ---- |
+    | 1             | Corinthians | 38  | 15  | 12  | 2   | 1   | 44  | 13  | 31  | 84.4 |
 
 
 #### 33 - Desenvolva o endpoint `/leaderboard` de forma que seja possível filtrar a classificação geral dos times na tela de classificação do front-end com os dados iniciais do banco de dados
