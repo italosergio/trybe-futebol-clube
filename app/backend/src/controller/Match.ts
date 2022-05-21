@@ -33,7 +33,20 @@ export default class Match {
 
   static async finish(req: Request, res: Response, _next: NextFunction): Promise<Response> {
     const { id } = req.params;
+
     await Update.matchFinish(id);
-    return res.status(200).json({ message: 'Finished' });
+
+    return res.status(204).json({ message: 'Finished' });
+  }
+
+  static async score(req: Request, res: Response, _next: NextFunction): Promise<Response> {
+    const {
+      params: { id },
+      body: { homeTeamGoals, awayTeamGoals },
+    } = req;
+
+    await Update.matchScore(id, homeTeamGoals, awayTeamGoals);
+
+    return res.status(200).json({ message: 'Score updated' });
   }
 }
