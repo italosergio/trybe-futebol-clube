@@ -18,10 +18,17 @@ export default class Match {
     return MatchesModel.create(values);
   }
 
-  static async finish(id: string){
+  static async finish(id: string) {
     await MatchesModel.update(
       { inProgress: false },
-      { where: { id } }
+      { where: { id } },
+    );
+  }
+
+  static async score(id: string, homeTeamGoals: number, awayTeamGoals: number) {
+    await MatchesModel.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
     );
   }
 }
