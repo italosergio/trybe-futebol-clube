@@ -36,6 +36,7 @@ class App {
     app.get('/teams/:id', Team.get);
     app.get('/matches', Matches.get);
     app.post('/matches', Match.create);
+    app.patch('/matches/:id', Match.score);
     app.patch('/matches/:id/finish', Match.finish);
     // ...
   }
