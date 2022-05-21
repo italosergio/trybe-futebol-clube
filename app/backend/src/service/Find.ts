@@ -2,7 +2,7 @@ import { IUser, ITeam, IMatch } from '../interface';
 import { User, Team, Teams, Match, Matches } from '../model';
 
 export default class Find {
-  static _user: IUser;
+  static _user: IUser | null;
 
   static _teams: ITeam[];
 
@@ -13,16 +13,7 @@ export default class Find {
   static _match: IMatch;
 
   static async User(email: string) {
-    const user = await User.find(email);
-
-    this._user = {
-      id: user?.getDataValue('id'),
-      username: user?.getDataValue('username'),
-      role: user?.getDataValue('role'),
-      email: user?.getDataValue('email'),
-      password: user?.getDataValue('password'),
-    };
-
+    this._user = await User.find(email);
     return this._user;
   }
 

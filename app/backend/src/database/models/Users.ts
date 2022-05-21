@@ -2,11 +2,11 @@ import { STRING, INTEGER, Model } from 'sequelize';
 import db from '.';
 
 class Users extends Model {
-  public id!: string;
+  public id!: number;
 
   public username!: string;
 
-  public role!: 'Admin' | 'User';
+  public role!: 'admin' | 'user';
 
   public email!: string;
 
@@ -42,13 +42,5 @@ Users.init({
   modelName: 'Users',
   timestamps: false,
 });
-
-// `Workaround` to applicate association on TS:
-
-// OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
-// OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-
-// ThisModel.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
-// ThisModel.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
 export default Users;
