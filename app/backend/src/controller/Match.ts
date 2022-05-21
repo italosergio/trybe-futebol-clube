@@ -36,7 +36,7 @@ export default class Match {
 
     await Update.matchFinish(id);
 
-    return res.status(204).json({ message: 'Finished' });
+    return res.status(200).json({ message: 'Finished' });
   }
 
   static async score(req: Request, res: Response, _next: NextFunction): Promise<Response> {
