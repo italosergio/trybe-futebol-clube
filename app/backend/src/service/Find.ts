@@ -6,7 +6,7 @@ export default class Find {
 
   static _teams: ITeam[];
 
-  static _team: ITeam;
+  static _team: ITeam | null;
 
   static _matches: IMatch[];
 
