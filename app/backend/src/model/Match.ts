@@ -17,4 +17,11 @@ export default class Match {
   static async insert(values: IMatch) {
     return MatchesModel.create(values);
   }
+
+  static async finish(id: string){
+    await MatchesModel.update(
+      { inProgress: false },
+      { where: { id } }
+    );
+  }
 }
