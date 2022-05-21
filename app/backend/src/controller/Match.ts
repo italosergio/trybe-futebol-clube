@@ -7,20 +7,15 @@ export default class Match {
     const {
       homeTeam,
       awayTeam,
-      homeTeamGoals,
-      awayTeamGoals,
-      inProgress,
     } = req.body;
 
-    const match: IMatch = {
-      homeTeam,
-      awayTeam,
-      homeTeamGoals,
-      awayTeamGoals,
-      inProgress,
-    };
+    const match: IMatch = { ...req.body };
 
-    if (homeTeam === awayTeam) return res.status(400).json({ message: 'times iguais' });
+    if (homeTeam === awayTeam) {
+      res
+        .status(401)
+        .json({ message: 'It is not possible to create a match with two equal teams' });
+    }
 
     await Create.match(match);
 
