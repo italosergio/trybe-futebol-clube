@@ -1,10 +1,10 @@
-import { IUser, ITeams, ITeam, IMatch } from '../interface';
+import { IUser, ITeam, IMatch } from '../interface';
 import { User, Team, Teams, Match, Matches } from '../model';
 
 export default class Find {
   static _user: IUser;
 
-  static _teams: ITeams[];
+  static _teams: ITeam[];
 
   static _team: ITeam;
 
