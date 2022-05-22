@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Login, Team, Teams, Match, Matches } from './controller';
+import { Login, Team, Teams, Match, Matches, Classification } from './controller';
 import { HttpError, Validate } from './middleware';
 
 import 'express-async-errors';
@@ -37,6 +37,7 @@ class App {
     app.post('/matches', Match.create);
     app.patch('/matches/:id', Match.score);
     app.patch('/matches/:id/finish', Match.finish);
+    app.get('/leaderboard/home', Classification.get);
     app.use('/', HttpError.throw);
 
     // ...
