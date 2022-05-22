@@ -1,21 +1,20 @@
 import * as express from 'express';
-import { Login, Team, Teams, Match, Matches, Classification } from './controller';
-import { HttpError, Validate } from './middleware';
+import { HttpError } from './middleware';
+import { LoginRouter, TeamsRouter, MatchesRouter, LeaderboardRouter } from './routes';
 
 import 'express-async-errors';
 
 class App {
   public app: express.Express;
-  // ...
 
   constructor() {
-    // ...
     this.app = express();
 
     this.app.use(express.json());
 
     this.config();
-    // ...
+
+    this.routes();
   }
 
   private config():void {
@@ -29,23 +28,22 @@ class App {
     const { app } = this;
 
     app.use(accessControl);
-    app.post('/login', Validate.email, Validate.password, Login.sucess);
-    app.get('/login/validate', Login.validate);
-    app.get('/teams', Teams.get);
-    app.get('/teams/:id', Team.get);
-    app.get('/matches', Matches.get);
-    app.post('/matches', Match.create);
-    app.patch('/matches/:id', Match.score);
-    app.patch('/matches/:id/finish', Match.finish);
-    app.get('/leaderboard/home', Classification.get);
-    app.use('/', HttpError.throw);
-
-    // ...
   }
 
-  // ...
   public start(PORT: string | number):void {
     this.app.listen(PORT, () => console.log(`escutando na porta ${PORT}`));
+  }
+
+  private routes(): void {
+    const login = new LoginRouter();
+    const teams = new TeamsRouter();
+    const matches = new MatchesRouter();
+    const leaderboard = new LeaderboardRouter();
+    this.app.use('/login', login.route);
+    this.app.use('/teams', teams.route);
+    this.app.use('/matches', matches.route);
+    this.app.use('/leaderboard', leaderboard.route);
+    this.app.use(HttpError.throw);
   }
 }
 
