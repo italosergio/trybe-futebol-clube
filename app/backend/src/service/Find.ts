@@ -18,7 +18,7 @@ export default class Find {
   }
 
   static async Teams() {
-    this._teams = await Teams.find();
+    this._teams = await Teams.get();
     return this._teams;
   }
 
