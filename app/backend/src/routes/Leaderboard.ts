@@ -6,6 +6,7 @@ export default class LeaderboardRouter {
 
   constructor() {
     this.route = express.Router();
+    this.config();
   }
 
   private config() {
