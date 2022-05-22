@@ -2,17 +2,12 @@ import 'mocha';
 import * as sinon from 'sinon';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
-
-import { app } from '../app';
-
-import { Response } from 'superagent';
-
 import Users from '../database/models/Users';
 import Teams from '../database/models/Teams';
-import { MatchesMock, TeamMock, TeamsMock, UserMock } from './mocks';
 import Matches from '../database/models/Matches';
-import { Helper } from '../service';
-import IUser from '../interface/IUser';
+import { app } from '../app';
+import { Response } from 'superagent';
+import { MatchesMock, TeamMock, TeamsMock, UserMock } from './mocks';
 
 chai.use(chaiHttp);
 
@@ -56,7 +51,7 @@ describe('1 - POST /login - Correct email and password', () => {
   });
 
   after(async ()=>{
-    (Users.findOne as sinon.SinonStub).restore();
+    sinon.restore();
   })
 
   it('Status 200', async () => {
@@ -93,7 +88,7 @@ describe('2 - POST /login - Incorrect email and password', () => {
   });
 
   after(async ()=>{
-    (Users.findOne as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   it('Return status 401 when <email> is incorrect', async () => {
@@ -196,7 +191,7 @@ describe('3 - GET /login/validate - Token validate', () => {
   });
 
   after(async ()=>{
-    (Users.findOne as sinon.SinonStub).restore();
+    sinon.restore();
   })
 
   it('Status 200', async () => {
@@ -222,7 +217,7 @@ describe('4 - GET /teams - Get all teams', () => {
   });
 
   after(async () => {
-    (Teams.findAll as sinon.SinonStub).restore();
+    sinon.restore();
   })
 
   it('Status 200', async () => {
@@ -259,7 +254,7 @@ describe('5 - GET /teams/:id - Get team', async () => {
   })
 
   after(async () => {
-    (Teams.findOne as sinon.SinonStub).restore()
+    sinon.restore()
   })
 
   it('Status 200', () => {
@@ -290,7 +285,7 @@ describe('6 - GET /matches - Get all matches', () => {
   });
 
   after(async () => {
-    (Matches.findAll as sinon.SinonStub).restore();
+    sinon.restore();
   })
 
   it('Status 200', async () => {
@@ -404,7 +399,7 @@ describe('7 - GET /matches?inProgress - Get all matches', () => {
   });
 
   after(async () => {
-    (Matches.findAll as sinon.SinonStub).restore();
+    sinon.restore();
   })
 
   it('Status 200', async () => {
@@ -439,9 +434,9 @@ describe('8 - POST /matches - Create match', () => {
   });
 
   after(async ()=>{
-    (Matches.create as sinon.SinonStub).restore();
-    (Matches.findOne as sinon.SinonStub).restore();
-    (Teams.findOne as sinon.SinonStub).restore();
+    sinon.restore();
+    sinon.restore();
+    sinon.restore();
   });
 
   it('When informations is acceptables', async () => {
@@ -510,7 +505,7 @@ describe('8 - POST /matches - Create match', () => {
   });
 });
 
-describe('9 - PATCH /matches/:id - Update in progress match', () => {
+describe('9 - PATCH /matches/:id - Update in progress match score', () => {
   before(async () => {
     sinon
       .stub(Matches, "update")
@@ -526,7 +521,7 @@ describe('9 - PATCH /matches/:id - Update in progress match', () => {
   });
 
   after(async ()=>{
-    (Matches.update as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   it('Status 200', async () => {
@@ -540,7 +535,7 @@ describe('9 - PATCH /matches/:id - Update in progress match', () => {
   });
 });
 
-describe('10 - PATCH /matches/:id/finish - Update in progress match', () => {
+describe('10 - PATCH /matches/:id/finish - Update in progress match to finished', () => {
   before(async () => {
     sinon
       .stub(Matches, "update")
@@ -552,7 +547,7 @@ describe('10 - PATCH /matches/:id/finish - Update in progress match', () => {
   });
 
   after(async ()=>{
-    (Matches.update as sinon.SinonStub).restore();
+    sinon.restore();
   });
 
   it('Status 200', async () => {
@@ -560,8 +555,48 @@ describe('10 - PATCH /matches/:id/finish - Update in progress match', () => {
     expect(chaiHttpResponse).to.have.status(200);
   });
 
-  it('Message \'Score updated\'', async () => {
+  it('Message \'Finished\'', async () => {
     expect(chaiHttpResponse.body.message).exist;
     expect(chaiHttpResponse.body.message).to.be.equal("Finished");
+  });
+});
+
+describe('11 - GET /leaderboard/home - Get teams classification', () => {
+  before(async () => {
+    sinon
+      .stub(Matches, "findAll")
+      .resolves([...MatchesMock] as unknown as Matches[]);
+
+      sinon
+      .stub(Teams, "findAll")
+      .resolves([...TeamsMock] as unknown as Teams[]);
+
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/leaderboard/home')
+  });
+
+  after(async ()=>{
+    sinon.restore();
+  });
+
+  it('Status 200', async () => {
+    expect(chaiHttpResponse.status).exist;
+    expect(chaiHttpResponse).to.have.status(200);
+  });
+
+  it('Body payload is acceptable', async () => {
+    expect(chaiHttpResponse.body[0]).exist;
+    expect(chaiHttpResponse.body[1]).exist;
+    expect(chaiHttpResponse.body[0].name).to.be.equal('Justice League');
+    expect(chaiHttpResponse.body[0].totalPoints).to.be.equal(3);
+    expect(chaiHttpResponse.body[0].totalGames).to.be.equal(1);
+    expect(chaiHttpResponse.body[0].totalVictories).to.be.equal(1);
+    expect(chaiHttpResponse.body[0].totalDraws).to.be.equal(0);
+    expect(chaiHttpResponse.body[0].totalLosses).to.be.equal(0);
+    expect(chaiHttpResponse.body[0].goalsFavor).to.be.equal(7);
+    expect(chaiHttpResponse.body[0].goalsOwn).to.be.equal(1);
+    expect(chaiHttpResponse.body[0].goalsBalance).to.be.equal(6);
+    expect(chaiHttpResponse.body[0].efficiency).to.be.equal(100);
   });
 });
