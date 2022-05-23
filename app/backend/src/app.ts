@@ -41,7 +41,7 @@ class App {
     this.app.post('/matches', Match.create);
     this.app.patch('/matches/:id', Match.score);
     this.app.patch('/matches/:id/finish', Match.finish);
-    this.app.get('/leaderboard/home', Classification.home);
+    this.app.get('/leaderboard/home', Classification.get);
     this.app.use('/', HttpError.throw);
   }
 }
