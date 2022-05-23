@@ -10,6 +10,6 @@ export default class LeaderboardRouter {
   }
 
   private config() {
-    this.route.get('/home', Classification.home);
+    this.route.get('/home', Classification.get);
   }
 }
