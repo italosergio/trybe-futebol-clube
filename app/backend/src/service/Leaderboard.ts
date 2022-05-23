@@ -4,9 +4,9 @@ import TeamResults from './TeamResults';
 export default class Leaderboard {
   private _leaderbord: ITeamResults[];
 
-  constructor(teams: ITeam[], matches: IMatch[]) {
+  constructor(teams: ITeam[], matches: IMatch[], type = 'general') {
     this._leaderbord = teams
-      .map((team) => new TeamResults(team, matches))
+      .map((team) => new TeamResults(team, matches, type))
       .sort((a, b) =>
         b.totalPoints - a.totalPoints
         || b.totalVictories - a.totalVictories

@@ -21,7 +21,7 @@ export default class TeamResults {
 
   public efficiency: number;
 
-  constructor(team: ITeam, matches: IMatch[]) {
+  constructor(team: ITeam, matches: IMatch[], type = 'general') {
     this.name = team.teamName;
     this.totalPoints = 0;
     this.totalGames = 0;
@@ -32,16 +32,20 @@ export default class TeamResults {
     this.goalsOwn = 0;
     this.goalsBalance = 0;
     this.efficiency = 0;
-    this.results(team, matches);
+    this.results(team, matches, type);
   }
 
-  async results(team: ITeam, matches: IMatch[]) {
-    matches
-      .filter((match) => (match.homeTeam === team.id) && !match.inProgress)
-      .forEach((match) => this.homeMatch(match));
-    // matches
-    //   .filter((match) => (match.awayTeam === team.id) && match.inProgress)
-    //   .forEach((match) => this.awayMatch(match));
+  async results(team: ITeam, matches: IMatch[], type: string) {
+    if (type === 'home' || type === 'general') {
+      matches
+        .filter((match) => (match.homeTeam === team.id) && !match.inProgress)
+        .forEach((match) => this.homeMatch(match));
+    }
+    if (type === 'away' || type === 'general') {
+      matches
+        .filter((match) => (match.awayTeam === team.id) && !match.inProgress)
+        .forEach((match) => this.awayMatch(match));
+    }
     this.goalsBalance = this.goalsFavor - this.goalsOwn;
     this.efficiency = (this.totalPoints / (this.totalGames * 3)) * 100;
     this.efficiency = Number(this.efficiency.toFixed(2));
@@ -63,19 +67,19 @@ export default class TeamResults {
     this.totalGames += 1;
   }
 
-  // private awayMatch(match: IMatch) {
-  //   if (match.awayTeamGoals > match.homeTeamGoals) {
-  //     this.totalPoints += 3;
-  //     this.totalVictories += 1;
-  //   }
-  //   if (match.awayTeamGoals === match.homeTeamGoals) {
-  //     this.totalPoints += 1;
-  //     this.totalDraws += 1;
-  //   }
-  //   if (match.awayTeamGoals < match.homeTeamGoals) this.totalLosses += 1;
-  //   this.goalsFavor += match.awayTeamGoals;
-  //   this.goalsOwn += match.homeTeamGoals;
+  private awayMatch(match: IMatch) {
+    if (match.awayTeamGoals > match.homeTeamGoals) {
+      this.totalPoints += 3;
+      this.totalVictories += 1;
+    }
+    if (match.awayTeamGoals === match.homeTeamGoals) {
+      this.totalPoints += 1;
+      this.totalDraws += 1;
+    }
+    if (match.awayTeamGoals < match.homeTeamGoals) this.totalLosses += 1;
+    this.goalsFavor += match.awayTeamGoals;
+    this.goalsOwn += match.homeTeamGoals;
 
-  //   this.totalGames += 1;
-  // }
+    this.totalGames += 1;
+  }
 }
