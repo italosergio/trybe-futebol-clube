@@ -104,7 +104,7 @@ describe(getRequirement(7), () => {
   });
 });
 
-describe.only(getRequirement(9), () => {
+describe(getRequirement(9), () => {
   it('O avaliador verificará se fazer o login com uma senha incorreta retornará status não-autorizado', async () => {
     await page.waitForTimeout(puppeteerDefs.pause.brief);
 
