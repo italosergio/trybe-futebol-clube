@@ -4,7 +4,7 @@ _Bem vinda(o)!!_
 
 # Habilidades
 
-![Exemplo app front](assets/front-example.png)
+![Exemplo app front](frontend.png)
 
 O `TFC` é um site informativo sobre partidas e classificações de futebol! ⚽️
 
