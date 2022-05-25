@@ -57,7 +57,7 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
 
 ## ![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/87591265/165222593-8c8b3d59-49ca-4493-98f9-056d92a211c2.gif)  Jogos
 
-- [x] 15 - `(TDD)` Cobertura de testes, 45% dos arquivos e 70 linhas de código [commit](https://github.com/italosergio/trybe-futebol-clube/commit/1cf2cddf0161bde21325b7caec6b15d08c354a8a
+- [x] 15 - `(TDD)` Cobertura de testes, 45% dos arquivos e 70 linhas de código [commit](https://github.com/italosergio/trybe-futebol-clube/commit/1cf2cddf0161bde21325b7caec6b15d08c354a8a)
 - [x] 16 - Endpoint GET **`/teams`**, retorna os times [commit](https://github.com/italosergio/trybe-futebol-clube/commit/d9e8e2802633c485b47819c6b7382a3412727621) [commit](https://github.com/italosergio/trybe-futebol-clube/commit/209838d4c80ca3316a233cc1bbb687b88e2e7a0a)
 - [x] 17 - Endpoint GET **`/teams/:id`**, retorna um time especifico [commit](https://github.com/italosergio/trybe-futebol-clube/commit/90f5c48278af6ca1b798b510181f530e7bc93242) [commit](https://github.com/italosergio/trybe-futebol-clube/commit/a4383a8798fa56bdde321f31f74b212f82e74230)
 - [x] 18 - `(TDD)` Cobertura de testes, 60% dos arquivos e 80 linhas de código [commit](https://github.com/italosergio/trybe-futebol-clube/commit/c49ed234ab87cb1421725647a90bfafc9ec8a795)
