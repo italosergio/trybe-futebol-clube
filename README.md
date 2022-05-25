@@ -16,6 +16,19 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
  - Construir uma **API REST** com endpoints para consumir os models criados;
  - Fazer um `CRUD` utilizando `ORM`;
 
+## Como acessar
+
+1. Clone o repositório
+    * `git clone https://github.com/italosergio/trybe-futebol-clube`
+2. Entre na pasta do repositório que você acabou de clonar:
+    * `cd trybe-futebol-clube`
+3. Instale as dependências
+    * `npm install`
+4. Inicialize o projeto:
+    ** _certifique-se de possuir docker instalado na sua máquina_
+    * `npm run compose:up`
+    * Tudo pronto para acessar `http://localhost:3000`
+
 # Requisitos 
 <img src="https://camisasechuteiras.com/wp-content/uploads/2018/02/Mercurial-Moments-Ronaldo-Porto_original.gif"></img>
 <details>
