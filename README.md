@@ -1,10 +1,8 @@
 _Bem vinda(o)!!_
 
-# Trybe Futebol Clube 🏆​<img src="https://camisasechuteiras.com/wp-content/uploads/2018/02/Mercurial-Moments-Ronaldo-Porto_original.gif"></img>
-
-# Habilidades
-
+# Trybe Futebol Clube 🏆
 ![Exemplo app front](frontend.png)
+# Habilidades
 
 O `TFC` é um site informativo sobre partidas e classificações de futebol! ⚽️
 
@@ -18,11 +16,8 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
  - Construir uma **API REST** com endpoints para consumir os models criados;
  - Fazer um `CRUD` utilizando `ORM`;
 
-
-<img align="right" height="150" src="https://media.baamboozle.com/uploads/images/90095/1605655690_340389"></img>
-
 # Requisitos 
-
+<img src="https://camisasechuteiras.com/wp-content/uploads/2018/02/Mercurial-Moments-Ronaldo-Porto_original.gif"></img>
 <details>
            <summary>Links úteis</summary>
            <a href="https://docs.docker.com/engine/reference/commandline/exec/">- getting in container with `docker exec`</a> </br>
@@ -41,6 +36,7 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
 
 ## ![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/87591265/165222593-8c8b3d59-49ca-4493-98f9-056d92a211c2.gif)  Sequelize 
 - [x] 00 - SETUP INICIAL (https://github.com/italosergio/trybe-futebol-clube/commit/7c26424c0cc5ddadd6d3cbb1b50ebdba30519d74)
+<img align="right" height="150" src="https://media.baamboozle.com/uploads/images/90095/1605655690_340389"></img>
 - [x] 01 - Migrations tabela de **`users`** (https://github.com/italosergio/trybe-futebol-clube/commit/7c26424c0cc5ddadd6d3cbb1b50ebdba30519d74)
 - [x] 02 - Migrations tabela de **`teams`** (https://github.com/italosergio/trybe-futebol-clube/commit/7c26424c0cc5ddadd6d3cbb1b50ebdba30519d74)
 - [x] 03 - Migrations tabela de **`matches`** (https://github.com/italosergio/trybe-futebol-clube/commit/7c26424c0cc5ddadd6d3cbb1b50ebdba30519d74)
