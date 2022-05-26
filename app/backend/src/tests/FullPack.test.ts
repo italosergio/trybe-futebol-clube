@@ -435,8 +435,6 @@ describe('8 - POST /matches - Create match', () => {
 
   after(async ()=>{
     sinon.restore();
-    sinon.restore();
-    sinon.restore();
   });
 
   it('When informations is acceptables', async () => {
@@ -574,6 +572,86 @@ describe('11 - GET /leaderboard/home - Get teams classification', () => {
     response = await chai
       .request(app)
       .get('/leaderboard/home')
+  });
+
+  after(async ()=>{
+    sinon.restore();
+  });
+
+  it('Status 200', async () => {
+    expect(response.status).exist;
+    expect(response).to.have.status(200);
+  });
+
+  it('Body payload is acceptable', async () => {
+    expect(response.body[0]).exist;
+    expect(response.body[1]).exist;
+    expect(response.body[0].name).to.be.equal('Justice League');
+    expect(response.body[0].totalPoints).to.be.equal(3);
+    expect(response.body[0].totalGames).to.be.equal(1);
+    expect(response.body[0].totalVictories).to.be.equal(1);
+    expect(response.body[0].totalDraws).to.be.equal(0);
+    expect(response.body[0].totalLosses).to.be.equal(0);
+    expect(response.body[0].goalsFavor).to.be.equal(7);
+    expect(response.body[0].goalsOwn).to.be.equal(1);
+    expect(response.body[0].goalsBalance).to.be.equal(6);
+    expect(response.body[0].efficiency).to.be.equal(100);
+  });
+});
+
+describe('12 - GET /leaderboard/away - Get away teams leaderboard results', () => {
+  before(async () => {
+    sinon
+      .stub(Matches, "findAll")
+      .resolves([...MatchesMock] as unknown as Matches[]);
+
+      sinon
+      .stub(Teams, "findAll")
+      .resolves([...TeamsMock] as unknown as Teams[]);
+
+    response = await chai
+      .request(app)
+      .get('/leaderboard/away')
+  });
+
+  after(async ()=>{
+    sinon.restore();
+  });
+
+  it('Status 200', async () => {
+    expect(response.status).exist;
+    expect(response).to.have.status(200);
+  });
+
+  it('Body payload is acceptable', async () => {
+    expect(response.body[0]).exist;
+    expect(response.body[1]).exist;
+    expect(response.body[0].name).to.be.equal('Justice League');
+    expect(response.body[0].totalPoints).to.be.equal(0);
+    expect(response.body[0].totalGames).to.be.equal(0);
+    expect(response.body[0].totalVictories).to.be.equal(0);
+    expect(response.body[0].totalDraws).to.be.equal(0);
+    expect(response.body[0].totalLosses).to.be.equal(0);
+    expect(response.body[0].goalsFavor).to.be.equal(0);
+    expect(response.body[0].goalsOwn).to.be.equal(0);
+    expect(response.body[0].goalsBalance).to.be.equal(0);
+    expect(response.body[0].efficiency).to.be.equal(null);
+  });
+});
+
+describe('13 - GET /leaderboard - Get general leaderboard results', () => {
+  before(async () => {
+    sinon
+      .stub(Matches, "findAll")
+      .resolves([...MatchesMock] as unknown as Matches[]);
+
+      sinon
+      .stub(Teams, "findAll")
+      .resolves([...TeamsMock] as unknown as Teams[]);
+
+    response = await chai
+      .request(app)
+      .get('/leaderboard')
   });
 
   after(async ()=>{
