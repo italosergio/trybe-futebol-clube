@@ -8,6 +8,7 @@ import Matches from '../database/models/Matches';
 import { app } from '../app';
 import { Response } from 'superagent';
 import { MatchesMock, TeamMock, TeamsMock, UserMock } from './mocks';
+import { IMatch } from '../interface';
 
 chai.use(chaiHttp);
 
@@ -54,27 +55,27 @@ describe('1 - POST /login - Correct email and password', () => {
     sinon.restore();
   })
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
   });
 
-  it('Response body <id>', async () => {
+  it('Check response body <id>', async () => {
     expect(response.body.user.id).exist;
     expect(response.body.user.id).to.be.equal(1);
   });
 
-  it('Response body <username>', async () => {
+  it('Check response body <username>', async () => {
     expect(response.body.user.username).exist;
     expect(response.body.user.username).to.be.equal('batman');
   });
 
-  it('Response body <role>', async () => {
+  it('Check response body <role>', async () => {
     expect(response.body.user.role).exist;
     expect(response.body.user.role).to.be.equal('admin');
   });
 
-  it('Response body <email>', async () => {
+  it('Check response body <email>', async () => {
     expect(response.body.user.email).exist;
     expect(response.body.user.email).to.be.equal('batman@justiceleague.org');
   });
@@ -194,7 +195,7 @@ describe('3 - GET /login/validate - Token validate', () => {
     sinon.restore();
   })
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
   });
@@ -220,12 +221,12 @@ describe('4 - GET /teams - Get all teams', () => {
     sinon.restore();
   })
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response.status).to.be.equal(200);
   });
 
-  it('Response body <id>', async () => {
+  it('Check response body <id>', async () => {
     expect(response.body[0].id).exist;
     expect(response.body[0].id).to.be.equal(1);
     
@@ -233,7 +234,7 @@ describe('4 - GET /teams - Get all teams', () => {
     expect(response.body[1].id).to.be.equal(2);
   });
 
-  it('Response body <teamName>', async () => {
+  it('Check response body <teamName>', async () => {
     expect(response.body[0].teamName).exist;
     expect(response.body[0].teamName).to.be.equal('Justice League');
 
@@ -250,26 +251,41 @@ describe('5 - GET /teams/:id - Get team', async () => {
 
     response = await chai
       .request(app)
-      .get("/teams/2")
+      .get("/teams/1")
   })
 
   after(async () => {
     sinon.restore()
   })
 
-  it('Status 200', () => {
+  it('Check status 200', () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
-  })
+  });
 
-  it('Response body <id>', async () => {
+  it('Check response body <id>', async () => {
     expect(response.body.id).exist;
     expect(response.body.id).to.be.equal(1);
   });
 
-  it('Response body <teamName>', async () => {
+  it('Check response body <teamName>', async () => {
     expect(response.body.id).exist;
-    expect(response.body.id).to.be.equal(1);
+    expect(response.body.teamName).to.be.equal("Justice League");
+  });
+
+  it('If :id doesn\'t exists, it shows \"team doesn\'t exist\" message', async () => {
+    sinon.restore()
+
+    sinon
+    .stub(Teams, "findOne")
+    .resolves(null);
+
+    response = await chai
+      .request(app)
+      .get("/teams/3")
+
+    expect(response.body.message).exist
+    expect(response.body.message).to.be.equal('Team doesn\'t exist');
   });
 })
 
@@ -288,73 +304,150 @@ describe('6 - GET /matches - Get all matches', () => {
     sinon.restore();
   })
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response.status).to.be.equal(200);
   });
 
-  it('Response body <id>', async () => {
+  it('Check response body length', async () => {
+    expect(response.body.length).to.be.equal(7);
+    
+  });
+
+  it('Check response body <id>', async () => {
     expect(response.body[0].id).exist;
     expect(response.body[0].id).to.be.equal(1);
-    
     expect(response.body[1].id).exist;
     expect(response.body[1].id).to.be.equal(2);
+    expect(response.body[2].id).exist; 
+    expect(response.body[2].id).to.be.equal(3);
+    expect(response.body[3].id).exist;
+    expect(response.body[3].id).to.be.equal(4);
+    expect(response.body[4].id).exist;
+    expect(response.body[4].id).to.be.equal(5);
+    expect(response.body[5].id).exist;
+    expect(response.body[5].id).to.be.equal(6);
+    expect(response.body[6].id).exist;
+    expect(response.body[6].id).to.be.equal(7);
   });
 
-  it('Response body <homeTeam>', async () => {
+  it('Check response body <homeTeam>', async () => {
     expect(response.body[0].homeTeam).exist;
     expect(response.body[0].homeTeam).to.be.equal(1);
-
     expect(response.body[1].homeTeam).exist;
     expect(response.body[1].homeTeam).to.be.equal(2);
+    expect(response.body[2].homeTeam).exist; 
+    expect(response.body[2].homeTeam).to.be.equal(2);
+    expect(response.body[3].homeTeam).exist;
+    expect(response.body[3].homeTeam).to.be.equal(2);
+    expect(response.body[4].homeTeam).exist;
+    expect(response.body[4].homeTeam).to.be.equal(1);
+    expect(response.body[5].homeTeam).exist;
+    expect(response.body[5].homeTeam).to.be.equal(1);
+    expect(response.body[6].homeTeam).exist;
+    expect(response.body[6].homeTeam).to.be.equal(1);
   });
 
-  it('Response body <homeTeamGoals>', async () => {
+  it('Check response body <homeTeamGoals>', async () => {
     expect(response.body[0].homeTeamGoals).exist;
     expect(response.body[0].homeTeamGoals).to.be.equal(7);
-
     expect(response.body[1].homeTeamGoals).exist;
     expect(response.body[1].homeTeamGoals).to.be.equal(1);
+    expect(response.body[2].homeTeamGoals).exist; 
+    expect(response.body[2].homeTeamGoals).to.be.equal(3);
+    expect(response.body[3].homeTeamGoals).exist;
+    expect(response.body[3].homeTeamGoals).to.be.equal(7);
+    expect(response.body[4].homeTeamGoals).exist;
+    expect(response.body[4].homeTeamGoals).to.be.equal(3);
+    expect(response.body[5].homeTeamGoals).exist;
+    expect(response.body[5].homeTeamGoals).to.be.equal(11);
+    expect(response.body[6].homeTeamGoals).exist;
+    expect(response.body[6].homeTeamGoals).to.be.equal(15);
   });
 
-  it('Response body <awayTeam>', async () => {
+  it('Check response body <awayTeam>', async () => {
     expect(response.body[0].awayTeam).exist;
     expect(response.body[0].awayTeam).to.be.equal(2);
-
     expect(response.body[1].awayTeam).exist;
     expect(response.body[1].awayTeam).to.be.equal(1);
+    expect(response.body[2].awayTeam).exist; 
+    expect(response.body[2].awayTeam).to.be.equal(1);
+    expect(response.body[3].awayTeam).exist;
+    expect(response.body[3].awayTeam).to.be.equal(1);
+    expect(response.body[4].awayTeam).exist;
+    expect(response.body[4].awayTeam).to.be.equal(2);
+    expect(response.body[5].awayTeam).exist;
+    expect(response.body[5].awayTeam).to.be.equal(2);
+    expect(response.body[6].awayTeam).exist;
+    expect(response.body[6].awayTeam).to.be.equal(2);
   });
 
-  it('Response body <awayTeamGoals>', async () => {
+  it('Check response body <awayTeamGoals>', async () => {
     expect(response.body[0].awayTeamGoals).exist;
     expect(response.body[0].awayTeamGoals).to.be.equal(1);
-
     expect(response.body[1].awayTeamGoals).exist;
     expect(response.body[1].awayTeamGoals).to.be.equal(7);
+    expect(response.body[2].awayTeamGoals).exist; 
+    expect(response.body[2].awayTeamGoals).to.be.equal(2);
+    expect(response.body[3].awayTeamGoals).exist;
+    expect(response.body[3].awayTeamGoals).to.be.equal(7);
+    expect(response.body[4].awayTeamGoals).exist;
+    expect(response.body[4].awayTeamGoals).to.be.equal(5);
+    expect(response.body[5].awayTeamGoals).exist;
+    expect(response.body[5].awayTeamGoals).to.be.equal(11);
+    expect(response.body[6].awayTeamGoals).exist;
+    expect(response.body[6].awayTeamGoals).to.be.equal(13);
   });
 
-  it('Response body <inProgress>', async () => {
+  it('Check response body <inProgress>', async () => {
     expect(response.body[0].inProgress).exist;
-    expect(response.body[0].inProgress).to.be.equal(false);
-
+    expect(response.body[0].inProgress).to.be.equal(true);
     expect(response.body[1].inProgress).exist;
-    expect(response.body[1].inProgress).to.be.equal(true);
+    expect(response.body[1].inProgress).to.be.equal(false);
+    expect(response.body[2].inProgress).exist; 
+    expect(response.body[2].inProgress).to.be.equal(false);
+    expect(response.body[3].inProgress).exist;
+    expect(response.body[3].inProgress).to.be.equal(false);
+    expect(response.body[4].inProgress).exist;
+    expect(response.body[4].inProgress).to.be.equal(false);
+    expect(response.body[5].inProgress).exist;
+    expect(response.body[5].inProgress).to.be.equal(false);
+    expect(response.body[6].inProgress).exist;
+    expect(response.body[6].inProgress).to.be.equal(false);
   });
 
-  it('Response body <teamHome>', async () => {
+  it('Check response body <teamHome>', async () => {
     expect(response.body[0].teamHome.teamName).exist;
     expect(response.body[0].teamHome.teamName).to.be.equal('Justice League');
-
     expect(response.body[1].teamHome.teamName).exist;
     expect(response.body[1].teamHome.teamName).to.be.equal('Avangers');
+    expect(response.body[2].teamHome.teamName).exist;
+    expect(response.body[2].teamHome.teamName).to.be.equal('Avangers');
+    expect(response.body[3].teamHome.teamName).exist;
+    expect(response.body[3].teamHome.teamName).to.be.equal('Avangers');
+    expect(response.body[4].teamHome.teamName).exist;
+    expect(response.body[4].teamHome.teamName).to.be.equal('Justice League');
+    expect(response.body[5].teamHome.teamName).exist;
+    expect(response.body[5].teamHome.teamName).to.be.equal('Justice League');
+    expect(response.body[6].teamHome.teamName).exist;
+    expect(response.body[6].teamHome.teamName).to.be.equal('Justice League');
   });
 
-  it('Response body <teamAway>', async () => {
+  it('Check response body <teamAway>', async () => {
     expect(response.body[0].teamAway.teamName).exist;
     expect(response.body[0].teamAway.teamName).to.be.equal('Avangers');
-    
     expect(response.body[1].teamAway.teamName).exist;
     expect(response.body[1].teamAway.teamName).to.be.equal('Justice League');
+    expect(response.body[2].teamAway.teamName).exist;
+    expect(response.body[2].teamAway.teamName).to.be.equal('Justice League');
+    expect(response.body[3].teamAway.teamName).exist;
+    expect(response.body[3].teamAway.teamName).to.be.equal('Justice League');
+    expect(response.body[4].teamAway.teamName).exist;
+    expect(response.body[4].teamAway.teamName).to.be.equal('Avangers');
+    expect(response.body[5].teamAway.teamName).exist;
+    expect(response.body[5].teamAway.teamName).to.be.equal('Avangers');
+    expect(response.body[6].teamAway.teamName).exist;
+    expect(response.body[6].teamAway.teamName).to.be.equal('Avangers');
   });
 });
 
@@ -362,36 +455,7 @@ describe('7 - GET /matches?inProgress - Get all matches', () => {
   before(async () => {
     sinon
       .stub(Matches, "findAll")
-      .resolves([
-        {
-          id: 1,
-          homeTeam: 1,
-          homeTeamGoals: 7,
-          awayTeam: 2,
-          awayTeamGoals: 1,
-          inProgress: true,
-          teamHome: {
-            teamName: "Justice League"
-          },
-          teamAway: {
-            teamName: "Avangers"
-          }
-        },
-        {
-          id: 2,
-          homeTeam: 2,
-          homeTeamGoals: 1,
-          awayTeam: 1,
-          awayTeamGoals: 7,
-          inProgress: false,
-          teamHome: {
-            teamName: "Avangers"
-          },
-          teamAway: {
-            teamName: "Justice League"
-          }
-        },
-      ] as unknown as Matches[]);
+      .resolves([...MatchesMock] as unknown as Matches[]);
 
     response = await chai
       .request(app)
@@ -402,14 +466,14 @@ describe('7 - GET /matches?inProgress - Get all matches', () => {
     sinon.restore();
   })
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response.status).to.be.equal(200);
   });
 
-  it('Response body <inProgress> all equals true', async () => {
+  it('Check response body <inProgress> all equals true', async () => {
     const matches = response.body
-    const everyTrue = matches.every((match) => match.inProgress === true )
+    const everyTrue = matches.every((match: IMatch) => match.inProgress === true )
     
     expect(everyTrue).to.be.equal(true);
   });
@@ -522,7 +586,7 @@ describe('9 - PATCH /matches/:id - Update in progress match score', () => {
     sinon.restore();
   });
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
   });
@@ -548,7 +612,7 @@ describe('10 - PATCH /matches/:id/finish - Update in progress match to finished'
     sinon.restore();
   });
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
   });
@@ -578,24 +642,34 @@ describe('11 - GET /leaderboard/home - Get teams classification', () => {
     sinon.restore();
   });
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
   });
 
-  it('Body payload is acceptable', async () => {
-    expect(response.body[0]).exist;
-    expect(response.body[1]).exist;
+  it('Check response body', async () => {
+    expect(response.body.length).to.be.equal(2);
     expect(response.body[0].name).to.be.equal('Justice League');
-    expect(response.body[0].totalPoints).to.be.equal(3);
-    expect(response.body[0].totalGames).to.be.equal(1);
+    expect(response.body[0].totalPoints).to.be.equal(4);
+    expect(response.body[0].totalGames).to.be.equal(3);
     expect(response.body[0].totalVictories).to.be.equal(1);
-    expect(response.body[0].totalDraws).to.be.equal(0);
-    expect(response.body[0].totalLosses).to.be.equal(0);
-    expect(response.body[0].goalsFavor).to.be.equal(7);
-    expect(response.body[0].goalsOwn).to.be.equal(1);
-    expect(response.body[0].goalsBalance).to.be.equal(6);
-    expect(response.body[0].efficiency).to.be.equal(100);
+    expect(response.body[0].totalDraws).to.be.equal(1);
+    expect(response.body[0].totalLosses).to.be.equal(1);
+    expect(response.body[0].goalsFavor).to.be.equal(29);
+    expect(response.body[0].goalsOwn).to.be.equal(29);
+    expect(response.body[0].goalsBalance).to.be.equal(0);
+    expect(response.body[0].efficiency).to.be.deep.equal(44.44);
+
+    expect(response.body[1].name).to.be.equal('Avangers');
+    expect(response.body[1].totalPoints).to.be.equal(4);
+    expect(response.body[1].totalGames).to.be.equal(3);
+    expect(response.body[1].totalVictories).to.be.equal(1);
+    expect(response.body[1].totalDraws).to.be.equal(1);
+    expect(response.body[1].totalLosses).to.be.equal(1);
+    expect(response.body[1].goalsFavor).to.be.equal(11);
+    expect(response.body[1].goalsOwn).to.be.equal(16);
+    expect(response.body[1].goalsBalance).to.be.equal(-5);
+    expect(response.body[1].efficiency).to.be.deep.equal(44.44);
   });
 });
 
@@ -618,24 +692,33 @@ describe('12 - GET /leaderboard/away - Get away teams leaderboard results', () =
     sinon.restore();
   });
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
   });
 
-  it('Body payload is acceptable', async () => {
-    expect(response.body[0]).exist;
-    expect(response.body[1]).exist;
+  it('Check response body', async () => {
+    expect(response.body.length).to.be.equal(2);
     expect(response.body[0].name).to.be.equal('Justice League');
-    expect(response.body[0].totalPoints).to.be.equal(0);
-    expect(response.body[0].totalGames).to.be.equal(0);
-    expect(response.body[0].totalVictories).to.be.equal(0);
-    expect(response.body[0].totalDraws).to.be.equal(0);
-    expect(response.body[0].totalLosses).to.be.equal(0);
-    expect(response.body[0].goalsFavor).to.be.equal(0);
-    expect(response.body[0].goalsOwn).to.be.equal(0);
-    expect(response.body[0].goalsBalance).to.be.equal(0);
-    expect(response.body[0].efficiency).to.be.equal(null);
+    expect(response.body[0].totalPoints).to.be.equal(4);
+    expect(response.body[0].totalGames).to.be.equal(3);
+    expect(response.body[0].totalVictories).to.be.equal(1);
+    expect(response.body[0].totalDraws).to.be.equal(1);
+    expect(response.body[0].totalLosses).to.be.equal(1);
+    expect(response.body[0].goalsFavor).to.be.equal(16);
+    expect(response.body[0].goalsOwn).to.be.equal(11);
+    expect(response.body[0].goalsBalance).to.be.equal(5);
+    expect(response.body[0].efficiency).to.be.equal(44.44);
+    expect(response.body[1].name).to.be.equal('Avangers');
+    expect(response.body[1].totalPoints).to.be.equal(4);
+    expect(response.body[1].totalGames).to.be.equal(3);
+    expect(response.body[1].totalVictories).to.be.equal(1);
+    expect(response.body[1].totalDraws).to.be.equal(1);
+    expect(response.body[1].totalLosses).to.be.equal(1);
+    expect(response.body[1].goalsFavor).to.be.equal(29);
+    expect(response.body[1].goalsOwn).to.be.equal(29);
+    expect(response.body[1].goalsBalance).to.be.equal(0);
+    expect(response.body[1].efficiency).to.be.equal(44.44);
   });
 });
 
@@ -658,23 +741,32 @@ describe('13 - GET /leaderboard - Get general leaderboard results', () => {
     sinon.restore();
   });
 
-  it('Status 200', async () => {
+  it('Check status 200', async () => {
     expect(response.status).exist;
     expect(response).to.have.status(200);
   });
 
-  it('Body payload is acceptable', async () => {
-    expect(response.body[0]).exist;
-    expect(response.body[1]).exist;
+  it('Check response body', async () => {
+    expect(response.body.length).to.be.equal(2);
     expect(response.body[0].name).to.be.equal('Justice League');
-    expect(response.body[0].totalPoints).to.be.equal(3);
-    expect(response.body[0].totalGames).to.be.equal(1);
-    expect(response.body[0].totalVictories).to.be.equal(1);
-    expect(response.body[0].totalDraws).to.be.equal(0);
-    expect(response.body[0].totalLosses).to.be.equal(0);
-    expect(response.body[0].goalsFavor).to.be.equal(7);
-    expect(response.body[0].goalsOwn).to.be.equal(1);
-    expect(response.body[0].goalsBalance).to.be.equal(6);
-    expect(response.body[0].efficiency).to.be.equal(100);
+    expect(response.body[0].totalPoints).to.be.equal(8);
+    expect(response.body[0].totalGames).to.be.equal(6);
+    expect(response.body[0].totalVictories).to.be.equal(2);
+    expect(response.body[0].totalDraws).to.be.equal(2);
+    expect(response.body[0].totalLosses).to.be.equal(2);
+    expect(response.body[0].goalsFavor).to.be.equal(45);
+    expect(response.body[0].goalsOwn).to.be.equal(40);
+    expect(response.body[0].goalsBalance).to.be.equal(5);
+    expect(response.body[0].efficiency).to.be.equal(44.44);
+    expect(response.body[1].name).to.be.equal('Avangers');
+    expect(response.body[1].totalPoints).to.be.equal(8);
+    expect(response.body[1].totalGames).to.be.equal(6);
+    expect(response.body[1].totalVictories).to.be.equal(2);
+    expect(response.body[1].totalDraws).to.be.equal(2);
+    expect(response.body[1].totalLosses).to.be.equal(2);
+    expect(response.body[1].goalsFavor).to.be.equal(40);
+    expect(response.body[1].goalsOwn).to.be.equal(45);
+    expect(response.body[1].goalsBalance).to.be.equal(-5);
+    expect(response.body[1].efficiency).to.be.equal(44.44);
   });
 });
