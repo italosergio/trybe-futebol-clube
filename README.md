@@ -28,6 +28,7 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
     ** _certifique-se de possuir docker instalado na sua máquina_
     * `npm run compose:up`
     * Tudo pronto para acessar `http://localhost:3000`
+    * Não esqueça de, após o uso da aplicação, parar os conteiners criados pra evitar uso desnecessario de memória. Para isso use o script ja criado no projeto `npm run compose:down`. ** certifique-se de estar na pasta raiz do projeto
 
 5. Obs.: Você pode navegar pela aplicação de três formas:
     * Anonimamente
