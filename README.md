@@ -29,6 +29,27 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
     * `npm run compose:up`
     * Tudo pronto para acessar `http://localhost:3000`
 
+5. Obs.: Você pode navegar pela aplicação de três formas:
+    * Anonimamente
+    * Usuario (mesmos privilegios que anônimo):
+      * Login: _user@user.com_
+      * Senha: _secret_user_
+    * Administrador (privilegios de criar e alterar partidas)
+      * Login: _admin@admin.com_
+      * Senha: _secret_admin_
+
+## Testes  
+_**cobertura de 99% das linhas de código_
+
+1. Clone o repositório
+    * `git clone https://github.com/italosergio/trybe-futebol-clube`
+2. Entre na pasta backend do repositório que você acabou de clonar:
+    * `cd trybe-futebol-clube/app/backend`
+3. Instale as dependências
+    * `npm install`
+4. Rode a cobertura de testes
+    * `npm run test:coverage` ou somente os testes com `npm run test`
+
 # Requisitos 
 <img src="https://camisasechuteiras.com/wp-content/uploads/2018/02/Mercurial-Moments-Ronaldo-Porto_original.gif"></img>
 <details>
