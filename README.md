@@ -29,6 +29,27 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
     * `npm run compose:up`
     * Tudo pronto para acessar `http://localhost:3000`
 
+5. Obs.: Você pode navegar pela aplicação de três formas:
+    * Anonimamente
+    * Usuario (mesmos privilegios que anônimo):
+      * Login: _user@user.com_
+      * Senha: _secret_user_
+    * Administrador (privilegios de criar e alterar partidas)
+      * Login: _admin@admin.com_
+      * Senha: _secret_admin_
+
+## Testes  
+_**cobertura de 99% das linhas de código_
+
+1. Clone o repositório
+    * `git clone https://github.com/italosergio/trybe-futebol-clube`
+2. Entre na pasta backend do repositório que você acabou de clonar:
+    * `cd trybe-futebol-clube/app/backend`
+3. Instale as dependências
+    * `npm install`
+4. Rode a cobertura de testes
+    * `npm run test:coverage` ou somente os testes com `npm run test`
+
 # Requisitos 
 <img src="https://camisasechuteiras.com/wp-content/uploads/2018/02/Mercurial-Moments-Ronaldo-Porto_original.gif"></img>
 <details>
@@ -93,19 +114,19 @@ Nesse projeto, eu construí **um back-end dockerizado utilizando modelagem de da
  
 ## ![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/87591265/165222593-8c8b3d59-49ca-4493-98f9-056d92a211c2.gif)  Leaderboard Home
 <img align="right" height="100" src="https://media.baamboozle.com/uploads/images/131515/1608491087_148679"></img>
-- [x] 29 - Endpoint **`/leaderboard/home`**, filtra a classificações dos times da casa;
-- [x] 30 - Endpoint **`/leaderboard/home`**, atualiza a classificações dos times da casa;
+- [x] 29 - Endpoint **`/leaderboard/home`**, filtra a classificações dos times da casa [commit](https://github.com/italosergio/trybe-futebol-clube/commit/8facc84992743cbb422be9a298635664b4aacc72)
+- [x] 30 - Endpoint **`/leaderboard/home`**, atualiza a classificações dos times da casa [commit](https://github.com/italosergio/trybe-futebol-clube/commit/8facc84992743cbb422be9a298635664b4aacc72)
 
 ## ![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/87591265/165222593-8c8b3d59-49ca-4493-98f9-056d92a211c2.gif)  Leaderboard away
 
-- [x] 31 - Endpoint **`/leaderboard/away`**, filtra a classificações dos times de fora;
-- [x] 32 - Endpoint **`/leaderboard/away`**, atualiza a classificações dos times de fora;
+- [x] 31 - Endpoint **`/leaderboard/away`**, filtra a classificações dos times de fora [commit](https://github.com/italosergio/trybe-futebol-clube/commit/381cd8fb450cedf06e5dd49403f8611736db64da)
+- [x] 32 - Endpoint **`/leaderboard/away`**, atualiza a classificações dos times de fora [commit](https://github.com/italosergio/trybe-futebol-clube/commit/381cd8fb450cedf06e5dd49403f8611736db64da)
 
 ## ![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/87591265/165222593-8c8b3d59-49ca-4493-98f9-056d92a211c2.gif)  Leaderboard
 
-- [x] 33 - Endpoint **`/leaderboard`**, filtra a classificações geral dos times;
-- [x] 34 - Endpoint **`/leaderboard`**, atualiza a classificações geral dos times ao inserir Flamengo 3 X 0 Napoli-SC;
-- [x] 35 - Endpoint **`/leaderboard`**, atualiza a classificações geral dos times ao inserir Minas Brasília 1 X 0 Ferroviária;
+- [x] 33 - Endpoint **`/leaderboard`**, filtra a classificações geral dos times [commit](https://github.com/italosergio/trybe-futebol-clube/commit/381cd8fb450cedf06e5dd49403f8611736db64da)
+- [x] 34 - Endpoint **`/leaderboard`**, atualiza a classificações geral dos times ao inserir Flamengo 3 X 0 Napoli-SC [commit](https://github.com/italosergio/trybe-futebol-clube/commit/381cd8fb450cedf06e5dd49403f8611736db64da)
+- [x] 35 - Endpoint **`/leaderboard`**, atualiza a classificações geral dos times ao inserir Minas Brasília 1 X 0 Ferroviária [commit](https://github.com/italosergio/trybe-futebol-clube/commit/381cd8fb450cedf06e5dd49403f8611736db64da)
 
 ##
 
